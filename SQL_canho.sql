@@ -101,4 +101,58 @@ join NHAN_VIEN nv
 join CHI_TIET_THANH_TOAN cttt 
 	on cttt.MAPHIEUTHU = pt.MAPHIEUTHU
 join KY_THANH_TOAN ktt 
-	on ktt.MAKYTHANHTOAN = pt.MAKYTHANHTOAN
+	on ktt.MAKYTHANHTOAN = pt.MAKYTHANHTOAN;
+
+--Hiển thị tất cả căn hộ và thông tin hợp đồng (kể cả căn hộ chưa cho thuê)
+SELECT 
+    ch.MACH,
+    ch.SONHA,
+    ch.TINHTRANG,
+    ch.DIENTICH,
+    ch.GIATHUE,
+    hd.MAHOPDONG,
+    hd.MAKH,
+    kh.HOTEN,
+    hd.NGAYKY,
+    hd.THOIHAN_HOPDONG,
+    hd.TIENTHUE,
+    DATEADD(MONTH, hd.THOIHAN_HOPDONG, hd.NGAYKY) AS NGAY_HET_HAN
+FROM CAN_HO ch
+LEFT JOIN HOP_DONG hd ON ch.MACH = hd.MACH
+LEFT JOIN KHACH_HANG kh ON hd.MAKH = kh.MAKH
+ORDER BY ch.MACH;
+--Liệt kê tất cả khách hàng và hợp đồng của họ (kể cả khách hàng chưa có hợp đồng)
+
+
+--Đếm số lượng khách hàng nam và nữ
+--Tính tổng diện tích tất cả căn hộ
+--Tính trung bình giá thuê theo số phòng
+--Đếm số căn hộ theo từng tình trạng
+
+
+--Thống kê số lượng căn hộ theo từng tòa nhà (dựa vào ký tự đầu của số nhà)
+--Liệt kê các quận có từ 3 phường trở lên
+--Tìm khách hàng có từ 2 địa chỉ trở lên
+--Thống kê doanh thu theo từng tháng năm 2024
+
+
+
+--Tìm căn hộ có giá thuê cao hất
+--Liệt kê khách hàng có tuổi lớn hơn tuổi trung bình
+--Tìm nhân viên phụ trách nhiều hợp đồng nhất
+--Liệt kê các kỳ thanh toán chưa thu đủ tiền
+
+
+
+--Tính tổng tiền đã thu được của từng căn hộ trong năm 2024
+--Tìm top 5 khách hàng đóng tiền nhiều nhất
+--Thống kê tình hình thu tiền theo từng nhân viên
+--Liệt kê các hợp đồng sắp hết hạn (trong vòng 3 tháng)
+
+
+--INSERT, UPDATE, DELETE
+
+--Thêm một khách hàng mới
+--Cập nhật giá thuê tăng 10% cho tất cả căn hộ tòa A
+--Xóa các kỳ thanh toán chưa phát sinh
+--Cập nhật tình trạng căn hộ thành "Trống" khi hợp đồng hết hạn
