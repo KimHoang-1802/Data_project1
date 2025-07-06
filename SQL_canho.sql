@@ -1,24 +1,35 @@
 -- =============== CÁC CÂU LỆNH SQL CƠ BẢN ( SQL BASIC )
---1. Lấy tất cả thông tin bảng Khách Hàng 
-select * from KHACH_HANG kh;
---2. Lấy tất cả thông tin của các căn hộ của xí nghiệp
-select * from CAN_HO ch;
--- 2.1. Lấy thông tin các căn hộ có số phòng từ 2 phòng trở lên còn trống 
-select 
-	ch.MACH AS 'Mã căn hộ ',
-	ch.DIENTICH AS 'Diện tích căn hộ ',
-	ch.GIATHUE AS ' Giá thuê ',
-	ch.TINHTRANG AS 'Tình trạng '
-from CAN_HO ch 
-where ch.SOPHONG >= 2 AND ch.TINHTRANG = N'Trống ';
--- 2.2 Lấy thông tin top 5 căn hộ có giá đắt nhất
-select
-	TOP 5 ch.SONHA AS 'So nha',
-	MAX(ch.GIATHUE) AS 'Gia thue',
-	ch.DIENTICH AS 'Dien tich (m vuong) ',
-	ch.SOPHONG AS 'So phong ngu '
-from CAN_HO ch
-group by ch.SONHA , ch.DIENTICH, ch.SOPHONG
-order by MAX(ch.GIATHUE) DESC;
+/*===============Truy vấn đơn giản==============*/
+-- Hiển thị danh sách tất cả khách hàng (tên, số điện thoại, email)
+SELECT 
+	kh.HOTEN as 'Ten khach hang',
+	kh.SDT as 'so dien thoai khach hang',
+	kh.EMAIL as 'email lien he'
+FROM KHACH_HANG kh;
+--Liệt kê tất cả căn hộ với diện tích và giá thuê
+SELECT 
+	ch.MACH as 'ma can ho',
+	ch.DIENTICH as 'dien tich can ho',
+	ch.GIATHUE as 'gia thue'
+FROM CAN_HO ch ;
+--Hiển thị thông tin tất cả nhân viên nam
+SELECT *
+from KHACH_HANG kh 
+WHERE kh.GIOITINH = N'Nam';
+--Liệt kê các căn hộ đang trống
+SELECT *
+FROM CAN_HO ch
+WHERE ch.TINHTRANG =  N'Trống ';
 
--- 2.3 
+/* ================Sử dụng WHERE với điều kiện============*/
+
+--Tìm khách hàng có tên chứa "Văn"
+select *
+from KHACH_HANG kh 
+where kh.HOTEN LIKE N'%Văn%';
+--Liệt kê căn hộ có diện tích từ 70m² trở lên
+select *
+from CAN_HO ch 
+where ch.DIENTICH >=70;
+--Tìm nhân viên sinh năm 1990 trở về sau
+--Hiển thị căn hộ có giá thuê từ 8 triệu đến 12 triệu
