@@ -52,3 +52,53 @@ select *
 from CAN_HO ch 
 order by ch.GIATHUE DESC;
 
+--INNER JOIN
+
+--Hiển thị tên khách hàng và địa chỉ đầy đủ (bao gồm tên đường, phường, quận, thành phố)
+select 
+	kh.HOTEN,
+	dp.TENDUONG,
+	px.TENPHUONG,
+	qh.TENQUAN,
+	tp.TENTP
+from KHACH_HANG kh 
+join DIA_CHI_KHACH_HANG dckh 
+	on kh.MAKH  = dckh.MAKH
+join DUONG_PHO dp 
+	on dp.MADUONG = dckh.MADUONG
+join PHUONG_XA px 
+	on px.[MAP] = dp.MAPHUONG
+join QUAN_HUYEN qh 
+	on qh.MAQ = px.MAQUAN
+join THANH_PHO tp 
+	on tp.MATP = qh.MATP;
+--Liệt kê hợp đồng với tên khách hàng và mã căn hộ
+select 
+	hd.MAHOPDONG,
+	kh.HOTEN,
+	ch.MACH,
+	hd.NGAYKY,
+	hd.THOIHAN_HOPDONG,
+	hd.TIENTHUE
+from HOP_DONG hd 
+join KHACH_HANG kh 
+	on hd.MAKH  = kh.MAKH
+join CAN_HO ch 
+	on hd.MACH  = ch.MACH;
+--Hiển thị thông tin phiếu thu với tên nhân viên đi thu
+select 
+	pt.MAPHIEUTHU,
+	nv.HOTENNV,
+	pt.MACH,
+	pt.MAKYTHANHTOAN,
+	cttt.NGAYTHU,
+	pt.TRANGTHAITHU,
+	ktt.TONGDATHU,
+	ktt.TIENPHAITHRA - ktt.TONGDATHU AS CON_LAI
+from PHIEU_THU pt 
+join NHAN_VIEN nv 
+	on pt.MANV_DITHU = nv.MANV
+join CHI_TIET_THANH_TOAN cttt 
+	on cttt.MAPHIEUTHU = pt.MAPHIEUTHU
+join KY_THANH_TOAN ktt 
+	on ktt.MAKYTHANHTOAN = pt.MAKYTHANHTOAN
