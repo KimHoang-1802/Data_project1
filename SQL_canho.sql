@@ -32,4 +32,23 @@ select *
 from CAN_HO ch 
 where ch.DIENTICH >=70;
 --Tìm nhân viên sinh năm 1990 trở về sau
+select *
+from NHAN_VIEN nv 
+where YEAR(nv.NGAYSINH) >= 1990;
 --Hiển thị căn hộ có giá thuê từ 8 triệu đến 12 triệu
+select *
+from CAN_HO ch 
+where ch.GIATHUE between 8000000 and 12000000
+order by ch.GIATHUE ASC;
+
+/* ===============Sắp xếp dữ liệu (ORDER BY)================*/
+
+--Sắp xếp khách hàng theo tên từ A-Z
+select *
+from KHACH_HANG kh 
+ORDER BY kh.HOTEN ASC;
+--Sắp xếp căn hộ theo giá thuê giảm dần
+select * 
+from CAN_HO ch 
+order by ch.GIATHUE DESC;
+
